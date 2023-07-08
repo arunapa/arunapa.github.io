@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <title>Wikipedia Viewer</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Lora:700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
+
+    <style>
+
+      html{
+        min-height: 100%;
+      }
+
+      body {
+        background-color: #F2F3F4;
+        overflow-y: scroll;
+        min-height: 100%;
+      }
+
+      .pic {
+        margin-top: 40px;
+        background-image: url("wiki/wiki1.png?raw=true");
+        background-size: 200px 200px;
+        background-position: center top;
+        background-repeat: no-repeat;
+        padding-top: 200px;
+      }
+
+      a, a:visited {color: black;}
+      a:hover {color: #424949;}
+
+      .wikitext {
+        font-size: 24px;
+        text-align: center;
+      }
+
+      h4, h5 {
+        display: inline-block;
+        font-size: 24px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      h4 { padding-right: 10px; border-right: 1px solid black; font-family: "Lora"; }
+
+      h5 { font-family: "Playfair Display"; }
+
+      button {outline:0 !important;}
+
+      .wrap {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+      }
+
+      .magglass {
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        margin-left: -250px;
+        opacity: 0.6;
+        width: 500px;
+        height: 50px;
+        font-size: 16px;
+        border-radius: 40px;
+        background-color: #FAFAFA;
+        box-shadow: 0 3px 5px -3px #000;
+        padding: 10px 70px 10px 40px;
+        border: 1px solid #888;
+      }
+
+      .magglass:hover { opacity: 1; outline: none; }
+
+      .magglass:focus {
+        opacity: 1;
+        outline: none;
+        box-shadow: 0 5px 10px -3px #000;
+      }
+
+      .magbar {
+        position: absolute;
+        margin-left: 50%;
+        left: 250px;
+        top: 38px;
+        border-left:3px solid #888;
+        border-right:2px solid #eee;
+        border-radius:3px;
+        height: 30px;
+        -webkit-box-shadow: 0 1px 2px 1px rgba(0,0,0,0.3);
+        box-shadow: 0 1px 2px 1px #777;
+        display: block;
+        -moz-transform: rotate(-45deg);
+        -webkit-transform: rotate(-45deg);
+        -o-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+      }
+
+      .clear{
+        position: absolute;
+        font-family: "Macondo";
+        font-size: 20px;
+        margin-left: 50%;
+        font-weight: 1000;
+        left: 185px;
+        top: 11px;
+        cursor: pointer;
+        transition: all 1s;
+        opacity: 0.6;
+      }
+
+      .clear img { width: 15px; height: 15px; }
+
+      .clear:hover { transform: rotateX(360deg); opacity: 1;}
+
+      .searchit {
+        position: absolute;
+        left: 50%;
+        margin-left: -240px;
+        top: 13px;
+        cursor: pointer;
+        transition: all 1s;
+        opacity: 0.7;
+      }
+
+      .searchit img { width: 25px; height: 25px;}
+
+      .searchit:hover { transform: scale(1.5); opacity: 1; }
+
+      button {outline: none !important;}
+
+      .mybut {
+        position: absolute;
+        left: 210px;
+        width: 30px;
+        height: 30px;
+        margin-left: 50%;
+        top: 10px;
+        transition: all ease 1s;
+      }
+
+      .mybut:hover {
+        transform: rotate(360deg);
+      }
+
+      .result {
+        margin-top: 100px;
+      }
+
+      .q {
+        position: relative;
+        display: inline-block;
+        width: 550px;
+        height: auto;
+        left: 50%;
+        margin-left: -275px;
+        padding: 10px 10px 10px 10px;
+        background-color: #e5c5c5;
+        border-radius: 1px;
+        transition: all ease 0.7s;
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
+
+      .q:hover {
+        opacity: 0.9;
+        border-left: 10px solid #b74747;
+        transform: scale(1.1);
+        transition: all 1s;
+      }
+
+      .q2 { background-color: #c6e5c5; }
+
+      .q2:hover { border-left: 10px solid #4cb747; }
+
+      .q3 { background-color: #c5c6e5; }
+
+      .q3:hover { border-left: 10px solid #474ab7; }
+
+      .title {
+        font-size: 25px;
+        padding-bottom: 15px;
+        letter-spacing: 1px;
+        color: #333;
+        font-family: "Playfair Display";
+        font-weight: 600;
+      }
+
+      .description {
+        font-size: 15px;
+        font-family: "Lora";
+        font-style: italic;
+        font-weight: 1000;
+      }
+
+      .footer {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin-top: auto;
+        padding: 2px;
+        text-align: center;
+        background: black;
+        background: linear-gradient(#eee, #bbb);
+      }
+
+      a:hover {outline: none !important;}
+
+      .footerimg {
+        height: 13px;
+        width: auto;
+        margin-left: 7px;
+        margin-right: 7px;
+        margin-bottom: 5px;
+      }
+
+      .footerimg:hover {opacity: 0.5;}
+
+      .footertext {
+        letter-spacing: 2px;
+        font-size: 10px;
+        font-weight: 1000;
+        font-family: 'Lora';
+        color: black;
+      }
+
+      @media only screen and (max-width: 1080px) {
+
+        .magglass {
+          position: absolute;
+          top: 30%;
+          left: 7%;
+          margin-left: 0px;
+          opacity: 0.6;
+          width: 86%;
+          height: 50px;
+          font-size: 16px;
+          border-radius: 40px;
+          background-color: #FAFAFA;
+          box-shadow: 0 3px 5px -3px #000;
+          padding: 10px 70px 10px 40px;
+          border: 1px solid #888;
+        }
+
+        .magbar {
+          position: absolute;
+          margin-left: 93%;
+          left: 0;
+          top: 38px;
+          border-left:3px solid #888;
+          border-right:2px solid #eee;
+          border-radius:3px;
+          height: 30px;
+          -webkit-box-shadow: 0 1px 2px 1px rgba(0,0,0,0.3);
+          box-shadow: 0 1px 2px 1px #777;
+          display: block;
+          -moz-transform: rotate(-45deg);
+          -webkit-transform: rotate(-45deg);
+          -o-transform: rotate(-45deg);
+          -ms-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+        }
+
+        .clear{
+          position: absolute;
+          font-family: "Macondo";
+          font-size: 20px;
+          left: 0px;
+          margin-left: 78%;
+          font-weight: 1000;
+          top: 11px;
+          cursor: pointer;
+          transition: all 1s;
+          opacity: 0.6;
+        }
+
+        .searchit {
+          position: absolute;
+          left: 8%;
+          margin-left: 0px;
+          top: 13px;
+          cursor: pointer;
+          transition: all 1s;
+          opacity: 0.7;
+        }
+
+        .mybut {
+          position: absolute;
+          left: 0px;
+          width: 30px;
+          height: 30px;
+          margin-left: 84%;
+          top: 10px;
+          transition: all ease 1s;
+        }
+        
+        .q {
+          position: relative;
+          display: inline-block;
+          width: 90%;
+          height: auto;
+          left: 5%;
+          margin-left: 0px;
+          padding: 10px 10px 10px 10px;
+          border-radius: 1px;
+          transition: all ease 0.7s;
+          margin-top: 5px;
+          margin-bottom: 5px;
+        }
+
+      }
+
+
+    </style>
+
+  </head>
+
+
+  <body>
+
+    <div class="pic"></div>
+
+    <div class="wikitext">
+      <h4 class="lined" style="font-family: Lora; font-weight: 400"><i>Wikipedia</i></h4>
+      <h5 class="anim-fade" style="font-family: Playfair Display; padding-bottom: 1px;">Viewer</h5>
+    </div>
+
+    <div id="wrapper">
+      <div class="wrap">
+        <form>
+
+          <input id="input" type="search" class="magglass" placeholder="What do you want to search?">
+          <div class="clear" onclick="eraseText()"><img src="wiki/ex.png?raw=true" /></div>
+          <div class="searchit" onclick="searchit()"><img class="mg" src="wiki/search.png?raw=true"></div>
+          <a href="https://en.wikipedia.org/wiki/Special:Random" target="_blank"><img src="wiki/nub.png?raw=true" title="Feelin' Lucky?" class="mybut"></a>
+          <div class="magbar"></div>
+        </form>
+      </div>
+    </div>
+
+    <div class="result"></div>
+
+    <div class="footer">
+      <div>
+        <a href="https://linkedin.com/in/arunapa" target="_blank"><img src="icons/linkedin.png?raw=true" class="footerimg" /></a>
+
+        <a href="https://github.com/arunapa" target="_blank"><img src="icons/git.png?raw=true" class="footerimg"/></a>
+
+        <a href="https://arunapa.github.io" target="_blank"><img src="icons/home.png?raw=true" class="footerimg"/></a>
+      </div>
+      <div class="footertext">© 2017-2022 Aruna Parameswaran | All Rights Reserved</div>
+    </div>
+
+
+
+  </body>
+
+  <script>
+
+    var searchBox = document.getElementById("input");
+    var searchBoxValue = '';
+    var url = 'https://en.wikipedia.org/w/api.php?action=query&callback=?&format=json&generator=search&prop=extracts&exintro&exsentences=1&exlimit=max&explaintext&gsrsearch=';
+
+    var json = [];
+    var title = "";
+    var qurl = "";
+    var desc = "";
+    var name = "";
+    var html = "";
+
+    var count = 0;
+
+    function eraseText() {
+      document.getElementById("input").value = "";
+      $(".result").empty();
+    }
+
+    function searchit() {
+      url = 'https://en.wikipedia.org/w/api.php?action=query&callback=?&format=json&generator=search&prop=extracts&exintro&exsentences=1&exlimit=max&explaintext&gsrsearch=';
+      count = 0;
+      searchBoxValue = searchBox.value;
+      url += encodeURIComponent(searchBoxValue);
+      $(".result").empty();
+      eraseText();
+      json = [];
+      title = "";
+      qurl = "";
+      desc = "";
+      html = "";
+      searchBoxValue = "";
+
+      $.getJSON(url, function(data){
+        json = data.query.pages;
+        $(".result").empty();
+        Object.keys(json).forEach(function(key) {
+          count++;
+          title = json[key]["title"];
+          desc = json[key]["extract"];
+          name = title.replace(/ /g, "_");
+          qurl = "https://en.wikipedia.org/wiki/" + name;
+
+          if(count % 3 === 1){
+            html = '<div><a href="'+ qurl +'" target="_blank"><div class="q q1"><div class="title">' + title + '</div><div class="description">' + desc +'</div></div></a></div>';
+          }
+          else if(count % 3 === 2){
+            html = '<div><a href="'+ qurl +'" target="_blank"><div class="q q2"><div class="title">' + title + '</div><div class="description">' + desc +'</div></div></a></div>';
+          }
+          else if(count % 3 === 0){
+            html = '<div><a href="'+ qurl +'" target="_blank"><div class="q q3"><div class="title">' + title + '</div><div class="description">' + desc +'</div></div></a></div>';
+          }
+
+          $(".result").append(html);
+        });
+        $(".result").append("<div style='padding-bottom: 100px;'></div>");
+      });
+    }
+
+  </script>
+
+</html>

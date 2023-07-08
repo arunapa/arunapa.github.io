@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <title>Local Weather App</title>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="/stylesheets/css_Sanford.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Barlow:200" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:600" rel="stylesheet">
+
+    <style>
+
+      html, body { width: 100%;}
+
+      body {
+        background-image: url("localweather/backgrounds/background.jpeg?raw=true");
+        background-position: center center;
+        background-repeat:  no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        background-color: #bbb;
+      }
+
+      .container {
+        margin-top: 20px;
+        text-align: center;
+      }
+
+      #show {display: none;}
+
+      .weather {
+        text-align: center;
+        font-size: 20px;
+        color: black;
+        text-shadow: 1px 1px 2px white;
+      }
+
+
+      .weathertext {
+        width: 100%;
+        height: 90%;
+        margin: 0 auto;
+        text-align: center;
+        font-size: 60px;
+        color: #333;
+        font-family: Abel;
+        text-shadow: 2px 2px 2px #ccc;
+      }
+
+      .mybutton {
+        margin-top: 200px;
+        padding: 15px 25px;
+        font-size: 24px;
+        text-align: center;
+        cursor: pointer;
+        outline: none;
+        color: #fff;
+        background-color: #229954 !important;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 9px #999;
+        font-family: monospace;
+      }
+      .mybutton:hover {background-color: #196F3D !important; }
+
+      .mybutton:active {
+        background-color: #196F3D;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+      }
+
+      .footer {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        padding: 2px;
+        text-align: center;
+        background: black;
+        background: linear-gradient(#444, #000);
+      }
+
+      a:hover {outline: none !important;}
+
+      .footerimg {
+        height: 13px;
+        width: auto;
+        margin-left: 7px;
+        margin-right: 7px;
+        margin-bottom: 5px;
+      }
+
+      .footerimg:hover {opacity: 0.5;}
+
+      .footertext {
+        letter-spacing: 2px;
+        font-size: 10px;
+        font-family: 'Exo';
+        color: white;
+      }
+
+      a {color: #DC7633;}
+      a:hover {color: #FAD7A0;}
+
+      p {position: absolute;}
+
+      .box {
+        background: url('') no-repeat center center fixed;
+        background-size: cover;
+        margin: 0 auto;
+        -moz-filter:blur(10px);
+        -o-filter:blur(10px);
+        -webkit-filter: blur(10px);
+        filter: blur(10px);
+        position: absolute;
+        height: 410px;
+        width: 700px;
+        left: 50%;
+        margin-left: -350px;
+        box-shadow: 5px 5px 0px black;
+      }
+
+
+      .insidebox {
+        padding: 2px 2px 2px 2px;
+        position: absolute;
+        height: 410px;
+        width: 700px;
+        left: 50%;
+        margin-left: -350px;
+        display: inline;
+        word-wrap: nowrap;
+        text-align: left;
+      }
+
+      .temp {
+        left: 40%;
+        top: -5px;
+        position: absolute;
+        font-size: 70px;
+        font-family: 'Barlow';
+      }
+
+      .image {
+        left: 20%;
+        position: absolute;
+      }
+
+      button {
+        font-size: 20px !important;
+        background-color: transparent !important;
+        margin-left: 20px;
+        margin-top: -10px;
+        border-color: #aaa !important;
+        box-shadow: 2px 2px 3px black;
+      }
+
+      .searchbutton { font-size: 15px !important;}
+      button, button:focus, button:hover, .searchbutton:focus{outline: 0 !important;}
+
+      .desc {
+        text-align: center;
+        font-family: Open Sans, sans-serif;
+        font-size: 50px;
+      }
+
+      .place {
+        margin-top: 10px;
+        font-family: 'Barlow';
+        font-size: 30px;
+      }
+
+      .font { text-shadow: 1px 1px 2px white; }
+
+      .digits {
+        font-family: Nunito Sans, sans-serif;
+        font-size: 20px;
+        text-align: center;
+      }
+
+      #mySearch {background-color: white; opacity: 0.6;}
+      #mySearch:focus {outline: 1px grey !important;}
+
+      .footer {
+        position: fixed;
+        padding: 7px;
+        font-size: 12px;
+        background-color: #E5E8E8;
+        text-align: center;
+        color: white;
+        background-color: black;
+      }
+
+      a {color: #DC7633;}
+      a:hover {color: #FAD7A0;}
+
+      .popup {
+          position: relative;
+          display: inline-block;
+          cursor: pointer;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+      }
+
+      .popup .popuptext {
+          visibility: hidden;
+          width: 160px;
+          background-color: #555;
+          color: #fff;
+          text-align: center;
+          border-radius: 6px;
+          padding: 8px 0;
+          position: absolute;
+          z-index: 1;
+          bottom: 125%;
+          left: 50%;
+          margin-left: -80px;
+      }
+      .popuptext {font-size: 15px; text-shadow: none;}
+
+      .popup .popuptext::after {
+          content: "";
+          position: absolute;
+          top: 100%;
+          left: 50%;
+          margin-left: -5px;
+          border-width: 5px;
+          border-style: solid;
+          border-color: #555 transparent transparent transparent;
+      }
+
+      .popup .show {
+          visibility: visible;
+          -webkit-animation: fadeIn 1s;
+          animation: fadeIn 1s;
+      }
+
+      @-webkit-keyframes fadeIn {
+          from {opacity: 0;}
+          to {opacity: 1;}
+      }
+
+      @keyframes fadeIn {
+          from {opacity: 0;}
+          to {opacity:1 ;}
+      }
+
+      .btnn {position: absolute; left: 80%;}
+
+      .search {padding-bottom: 20px;}
+
+      @media only screen and (max-width: 1080px) {
+
+        html, body {height: 100%;}
+
+        body {
+          background-position: center center;
+          background-repeat:  no-repeat;
+          background-attachment: fixed;
+          background-size: none cover;
+          background-color: #bbb;
+        }
+
+        .box{
+          width: 90%;
+          height: 75%;
+          left: 4%;
+          margin-left: 0px;
+        }
+
+        .insidebox {
+          height: 90%;
+          width: 90%;
+          left: 7%;
+          margin-left: 0px;
+        }
+
+        .image {left: 8%;}
+        .temp {left: 29%;}
+        .place {
+          float: left;
+          margin-left: 10px;
+        }
+
+        .btnn { left: 80%; }
+        .desc {float: left; text-align: left;}
+      }
+
+    </style>
+
+  </head>
+
+  <body>
+    <div class="container" id="p">
+
+      <div id="c">
+        <div id="innit" class="weathertext">LOCAL WEATHER APP</div>
+        <button class="mybutton" onclick="getLocation()" >Get your forecast!</button>
+      </div>
+
+      <div id="show">
+
+        <div class="search">
+          <form>
+            <div style="text-align: center; margin-top: 30px;">
+              <input type="search" id="mySearch" placeholder="Search city (eg. Boston)">
+              <button type="submit" class="searchbutton font">Search!</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="box"></div>
+
+        <div class="insidebox">
+
+          <span class="image"></span>
+
+          <span class="popup temp font"></span>
+
+          <span class="font btnn"><button onclick="CtoF()" class="btn font"><strong>/F</strong></button></span>
+
+          <span class="row" style="display: inline">
+            <span class="desc font col-md-12"></span>
+            <span class="place font col-md-12"></span>
+          </span>
+
+
+          <div class="row digits font" >
+
+            <span class="col-xs-4"><div>
+              <img src="localweather/wind.png?raw=true" style="width:75px; height: 75px;"></img>
+            </div><div class="wind"></div></span>
+
+            <span class="col-xs-4"><div>
+              <img style="width:75px; height: 75px;" src="localweather/preci.png?raw=true"></img>
+            </div><div class="precip"></div></span>
+
+            <span class="col-xs-4"><div>
+              <img style="width:75px; height: 75px;" src="localweather/humidity.png?raw=true"><img>
+            </div><div class="humid"></div></span>
+          </div>
+
+
+
+        </div>
+      </div>
+
+
+      <span><p id="error" class="weather" style="text-align: center; position: absolute"></p></span>
+
+
+    </div>
+
+    <div class="footer">
+      <div>
+        <a href="https://linkedin.com/in/arunapa" target="_blank"><img src="icons/lightlinkedin.png?raw=true" class="footerimg" /></a>
+
+        <a href="https://github.com/arunapa" target="_blank"><img src="icons/lightgit.png?raw=true" class="footerimg"/></a>
+
+        <a href="https://arunapa.github.io" target="_blank"><img src="icons/lighthome.png?raw=true" class="footerimg"/></a>
+      </div>
+      <div class="footertext">© 2017-2022 Aruna Parameswaran | All Rights Reserved</div>
+    </div>
+
+  </body>
+
+  <script type="text/javascript">
+
+    var t_in_c, t_in_f, wind_k, wind_m;
+    var displaytype = "c";
+
+    function getLocation() {
+      var x = document.getElementById("error");
+      if (navigator.geolocation)
+          navigator.geolocation.getCurrentPosition(showWeather);
+      else
+          x.innerHTML = "Geolocation is not supported by this browser. We're sorry for the inconvenience!";
+    }
+
+    function showWeather(position) {
+      var child = document.getElementById("c");
+      var parent = document.getElementById("p");
+      parent.removeChild(child);
+
+
+      var box = document.getElementById("show");
+      box.style.display = "block";
+
+
+      var lat = position.coords.latitude;
+      var lon = position.coords.longitude;
+      var url = "https://api.apixu.com/v1/current.json?key=6dc16876e55c47f3bec71227172012&q=" + lat + "," + lon ;
+
+      getData(url);
+
+  }
+
+    function getData(url){
+      $.getJSON(url, function(data) {
+        //  if(data.error.code === "1006")
+          //  $("p").append("No matching location found!");
+        //  else{
+          //  $("p").append(data);
+        t_in_c = data.current.temp_c;
+        t_in_f = data.current.temp_f;
+        var desc = data.current.condition.text;
+        var place = data.location.name + "<br><small>" + data.location.region + ", " + data.location.country + "</small>";
+        wind_k = data.current.wind_kph;
+        wind_m = data.current.wind_mph;
+        var precip = data.current.precip_mm;
+        var humid = data.current.humidity;
+        var flag = data.current.condition.code;
+        var icon = "https:" + data.current.condition.icon;
+        var bgimage = "localweather/backgrounds/";
+
+        place = place.toUpperCase();
+
+        switch(flag){
+          case 1000 :
+            bgimage += "sunny.jpeg?raw=true";
+            break;
+          case 1003 :
+            bgimage += "cloudy1.jpeg?raw=true";
+            break;
+          case 1006 :
+            bgimage += "cloudy2.jpg?raw=true";
+            break;
+          case 1009 :
+            bgimage += "overcast.jpeg?raw=true";
+            break;
+              case 1030 :
+              case 1063 :
+              case 1066 :
+              case 1069 :
+              case 1072 :
+                bgimage += "misty1.jpeg?raw=true";
+                break;
+              case 1087 :
+                bgimage += "lightn.jpeg?raw=true";
+                break;
+              case 1114 :
+              case 1117 :
+                bgimage += "lightsnow2.jpeg?raw=true";
+                break;
+              case 1135 :
+              case 1147 :
+                bgimage += "misty2.jpg?raw=true";
+                break;
+              case 1150 :
+              case 1153 :
+              case 1168 :
+              case 1171 :
+                bgimage += "lightsnow3.jpeg?raw=true";
+                break;
+              case 1180 :
+              case 1183 :
+              case 1186 :
+              case 1189 :
+              case 1192 :
+              case 1195 :
+              case 1198 :
+              case 1201 :
+                bgimage += "heavyrain.jpeg?raw=true";
+                break;
+
+              case 1204 :
+              case 1207 :
+              case 1210 :
+              case 1213 :
+              case 1216 :
+                bgimage += "snow2.jpeg?raw=true";
+                break;
+              case 1219 :
+              case 1222 :
+              case 1225 :
+              case 1237 :
+                bgimage += "snow3.jpeg?raw=true";
+                break;
+              case 1240 :
+              case 1243 :
+              case 1246 :
+                bgimage += "drizzle2.jpeg?raw=true";
+                break;
+              case 1249 :
+              case 1252 :
+              case 1255 :
+              case 1258 :
+              case 1261 :
+              case 1264 :
+                bgimage += "snow5.jpeg?raw=true";
+                break;
+              case 1273 :
+              case 1276 :
+              case 1279 :
+              case 1282 :
+                bgimage += "thunder1.jpeg?raw=true";
+                break;
+
+            }
+
+            var weather = $(".weather");
+
+            $("body").css("background-image", 'url('+bgimage+')');
+            $(".box").css("background-image", 'url('+bgimage+')');
+
+            $(".temp").prepend(t_in_c + '°C');
+            $(".desc").append(desc);
+            $(".place").append(place);
+            $(".wind").append(wind_k + 'kmph');
+            $(".precip").append(precip + 'mm');
+            $(".humid").append(humid + '%');
+            $('.image').prepend('<img style="width: 100px" src="'+ icon +'" />')
+
+
+      }).error(function(e) {
+          $(".weather").append('Sorry! Not Loaded');
+      });
+      $('.weather').submit(loadData);
+
+    }
+
+    function CtoF(){
+      $(".temp").empty();
+      $(".wind").empty();
+      $(".btn").empty();
+
+      if(displaytype === "c"){
+        $(".temp").prepend(t_in_f + '°F');
+        $(".wind").append(wind_m + 'mph');
+        $(".btn").append('/C');
+        displaytype = "f";
+
+      }
+      else {
+        $(".btn").append('/F');
+        $(".temp").prepend(t_in_c + '°C');
+        $(".wind").append(wind_k + 'kmph');
+        displaytype = "c";
+      }
+    }
+
+    $( "form" ).submit(function( event ) {
+      event.preventDefault();
+      var inputval = $("#mySearch").val();
+      var searchURL = "https://api.apixu.com/v1/current.json?key=6dc16876e55c47f3bec71227172012&q=" + encodeURIComponent(inputval);
+      //$("p").append(searchURL);
+      $(".temp").empty();
+      $(".desc").empty();
+      $(".place").empty();
+      $(".wind").empty();
+      $(".precip").empty();
+      $(".humid").empty();
+      $('.image').empty();
+      t_in_c = t_in_f = wind_k = wind_m = 0;
+      getData(searchURL);
+
+
+
+    });
+
+  </script>
+
+</html>

@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <title>Calculator</title>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
+
+
+    <style>
+
+      html, body { height: 100%; }
+
+      body {
+        text-align: center;
+        background-image: url("calculator/backg.jpeg?raw=true");
+        background-position: center center;
+        background-repeat:  no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        background-color: black;
+        font-family: "Orbitron";
+      }
+
+      .wrapper {
+        width: 300px;
+        height: 450px;
+        top: 50%;
+        left: 50%;
+        position: fixed;
+        border-radius: 5%;
+        margin-left: -150px;
+        margin-top: -225px;
+        box-shadow: 5px 15px 20px;
+        border-bottom-left-radius: 100%70px;
+        border-bottom-right-radius: 100%70px;
+      }
+
+      .base {
+        position: absolute;
+        background-color: #C8B8A8;
+        width: 100%;
+        height: 100%;
+        border-radius: 30%;
+        border: 2px solid #756c62;
+        border-bottom-left-radius: 100%60px;
+        border-bottom-right-radius: 100%60px;
+        -webkit-box-shadow: inset -10px -7px 74px 0px rgba(0,0,0,0.71);
+        -moz-box-shadow: inset -10px -7px 74px 0px rgba(0,0,0,0.71);
+        box-shadow: inset -10px -7px 74px 0px rgba(0,0,0,0.71);
+      }
+
+      .blackbox {
+        position: absolute;
+        top: -2%;
+        width: 100%;
+        height: 32%;
+        border-top-left-radius: 100%40px;
+        border-top-right-radius: 100%40px;
+        background: linear-gradient(#333, #000);
+      }
+
+      .whitebox {
+        position: absolute;
+        width: 80%;
+        height: 60%;
+        top: 25%;
+        left: 10%;
+        background: white;
+        border-radius: 5%;
+      }
+
+      .display {
+        overflow: hidden;
+        position: absolute;
+        width: 220px;
+        height: 65px;
+        top: 10%;
+        left: 50%;
+        margin-left: -110px;
+        color: #818e85;
+        font-size: 30px;
+        background: #89998d;
+      }
+
+      .ip {
+        position: absolute;
+        color: black;
+        font-size: 30px;
+        top: 1%;
+        margin-left: 10px;
+      }
+
+      .history {
+        position: absolute;
+        color: black;
+        font-size: 15px;
+        top: 60%;
+        color: #48564c;
+        margin-left: 10px;
+
+      }
+
+      .no {
+        position: absolute;
+        width: 45px;
+        height: 40px;
+        top: 44%;
+        left: 12%;
+        border: 0;
+        border-radius: 8px;
+        box-shadow: 0 5px black;
+        background: linear-gradient(#000, #555);
+        color: white;
+        font-size: 20px;
+      }
+
+
+      .no:active {
+        transform: translateY(5px);
+        box-shadow: 0 1px black;
+      }
+
+      .no2, .no5, .no8 { left: 31%; }
+      .no3, .no6, .no9 { left: 50%; }
+      .no4, .no5, .no6 {top: 57%;}
+      .no7, .no8, .no9 {top: 70%;}
+      .no0 { left: 31%; top: 83%;}
+      .nodot {font-size: 30px; left: 12%; top: 83%;}
+
+      .ac, .ce {
+        position: absolute;
+        width: 75px;
+        height: 40px;
+        top: 32%;
+        left: 12%;
+        border: 0;
+        border-radius: 8px;
+        box-shadow: 0 5px #8e0000;
+        background: linear-gradient(#ad0000, #ff2121);
+        color: white;
+        font-size: 20px;
+      }
+      .ce { left: 40%; }
+      .ac:active, .ce:active {
+        transform: translateY(5px);
+        box-shadow: 0 1px #8e0000;
+      }
+
+      .op {
+        position: absolute;
+        width: 60px;
+        height: 40px;
+        top: 32%;
+        left: 69%;
+        border: 0;
+        border-radius: 8px;
+        box-shadow: 0 5px #00466d;
+        background: linear-gradient(#00669e, #0082c9);
+        color: white;
+        font-size: 30px;
+      }
+
+      .op:active {
+        transform: translateY(5px);
+        box-shadow: 0 1px #00466d;
+      }
+
+      .sub { top: 44%; }
+      .mul { top: 57%; }
+      .div { top: 70%; }
+
+      .ans {
+        position: absolute;
+        width: 116px;
+        height: 40px;
+        top: 83%;
+        left: 50%;
+        border: 0;
+        border-radius: 8px;
+        box-shadow: 0 5px #875500;
+        background: linear-gradient(#e08d00, #ffa100);
+        color: white;
+        font-size: 30px;
+        line-height: 0px;
+      }
+
+      .ans:active {
+        transform: translateY(5px);
+        box-shadow: 0 1px #875500;
+      }
+
+      button { outline: none !important; }
+      button:hover {opacity: 0.8;}
+
+      .footer {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        padding: 2px;
+        text-align: center;
+        background: black;
+        background: linear-gradient(#444, #000);
+      }
+
+      a:hover {outline: none !important;}
+
+      .footerimg {
+        height: 13px;
+        width: auto;
+        margin-left: 7px;
+        margin-right: 7px;
+        margin-bottom: 5px;
+      }
+
+      .footerimg:hover {opacity: 0.5;}
+
+      .footertext {
+        letter-spacing: 2px;
+        font-size: 10px;
+        font-family: 'Orbitron';
+        color: white;
+      }
+
+    </style>
+
+
+  </head>
+
+
+  <body>
+
+    <div class="wrapper">
+      <div class="base"></div>
+      <div class="blackbox">
+        <div class="whitebox">
+          <div class="display">88888888
+            <div class="ip"></div>
+            <div class="history"></div>
+          </div>
+        </div>
+      </div>
+      <div class="buts">
+        <button class="ac" onclick="clearall()">AC</button>
+        <button class="ce" onclick="clearentry()">CE</button>
+        <button class="no no1" onclick="putnumber('1')">1</button>
+        <button class="no no2" onclick="putnumber('2')">2</button>
+        <button class="no no3" onclick="putnumber('3')">3</button>
+        <button class="no no4" onclick="putnumber('4')">4</button>
+        <button class="no no5" onclick="putnumber('5')">5</button>
+        <button class="no no6" onclick="putnumber('6')">6</button>
+        <button class="no no7" onclick="putnumber('7')">7</button>
+        <button class="no no8" onclick="putnumber('8')">8</button>
+        <button class="no no9" onclick="putnumber('9')">9</button>
+        <button class="no nodot" onclick="decimal()">.</button>
+        <button class="no no0" onclick="putnumber('0')">0</button>
+      </div>
+      <div>
+        <button class="op add" onclick="symbol('+')">+</button>
+        <button class="op sub" onclick="symbol('-')">-</button>
+        <button class="op mul" onclick="symbol('*')">*</button>
+        <button class="op div" onclick="symbol('/')">/</button>
+      </div>
+
+      <button class="ans" onclick="givemepls()">=</button>
+
+    </div>
+
+    <div class="footer">
+      <div>
+        <a href="https://linkedin.com/in/arunapa" target="_blank"><img src="icons/lightlinkedin.png?raw=true" class="footerimg" /></a>
+
+        <a href="https://github.com/arunapa" target="_blank"><img src="icons/lightgit.png?raw=true" class="footerimg"/></a>
+
+        <a href="https://arunapa.github.io" target="_blank"><img src="icons/lighthome.png?raw=true" class="footerimg"/></a>
+      </div>
+      <div class="footertext col-sm-12">© 2017-2022 Aruna Parameswaran | All Rights Reserved</div>
+
+    </div>
+
+    <script>
+
+      var clear = true;
+      var lastpressed = "";
+      var hasdec = false;
+      var numbers = [];
+      var oper = [];
+      var temp = "";
+      var isAnswer = false;
+      var x = 0;
+      var y = 0;
+      var result = 0;
+      var lengthy;
+
+      function precheck(){
+        if(clear === true){
+          clear = false;
+          $(".display").html("<div class='ip'></div><div class='history'></div>");
+        }
+      }
+
+      function putnumber(number){
+        if(isAnswer){
+          clearall();
+          clear = false;
+          $(".display").html("<div class='ip'></div><div class='history'></div>");
+        }
+
+        else{
+          precheck();
+          if(lastpressed == "+"|| lastpressed == "-" || lastpressed == "*" || lastpressed == "/"){
+            $(".ip").empty();
+            lastpressed = "";
+          }
+        }
+
+        $(".ip").append(number);
+        $(".history").append(number);
+        lastpressed += number;
+
+      }
+
+      function symbol(op){
+        if(isAnswer){
+          var strn = $(".ip").text();
+          $(".ip").empty();
+          $(".ip").append(op);
+          $(".history").empty();
+          $(".history").append(strn, op);
+          lastpressed = op;
+          isAnswer = false;
+          numbers = [];
+          oper = [];
+          result = 0;
+          x = 0;
+          y = 0;
+        }
+        else if(lastpressed != "" && lastpressed != "+" && lastpressed != "-" && lastpressed != "*" && lastpressed != "/"){
+          $(".ip").empty();
+          $(".ip").append(op);
+          $(".history").append(op);
+          lastpressed = op;
+          hasdec = false;
+        }
+      }
+
+      function decimal(){
+        if(isAnswer)
+          clearall();
+        precheck();
+        if(!hasdec){
+          if(lastpressed == "" ||lastpressed == "+"|| lastpressed == "-" || lastpressed == "*" || lastpressed == "/"){
+            $(".ip").empty();
+            $(".ip").append("0");
+            $(".history").append("0");
+            lastpressed = "0";
+          }
+          $(".ip").append('.');
+          $(".history").append('.');
+          lastpressed += '.';
+          hasdec = true;
+        }
+      }
+
+      function clearentry(){
+        if(isAnswer)
+          clearall();
+        var str1 = $(".history").text(); //123+456
+        //lastpressed = 456
+        var len = -1 * lastpressed.length; //-3
+        var str3 = str1.slice(0, len); //123+
+
+        if(lastpressed == str1) //lastnumbercase
+          clearall();
+
+        else{
+          hasdec = false;
+          $(".history").empty();
+          $(".ip").empty();
+          $(".history").append(str3);
+
+          //char case
+          if(str3[str3.length - 1] == "+" || str3[str3.length - 1] == "-" || str3[str3.length - 1] == "*"  || str3[str3.length - 1] == "/"){
+            $(".ip").append(str3[str3.length - 1]);
+            lastpressed = str3[str3.length - 1];
+          }
+          //number case -- if last number or not
+          else{
+            var no_op = 0, op_index;
+            for(var i = 0; i < str3.length; i++){
+              if(str3[i] == "+" || str3[i] == "-" || str3[i] == "*" || str3[i] == "/"){
+                no_op++;
+                op_index = i;
+              }
+              if(str3[i] == ".")
+                hasdec = true;
+            }
+            if(no_op == 0){
+              $(".ip").append(str3);
+              lastpressed = str3;
+            }
+            else{
+              hasdec = false;
+              str3 = str3.slice(op_index + 1);
+              for(var i = 0; i < str3.length; i++){
+                if(str3[i] == ".")
+                  hasdec = true;
+              }
+              $(".ip").append(str3);
+              lastpressed = str3;
+            }
+          }
+        }
+      }
+
+
+      function clearall(){
+        clear = true;
+        lastpressed = "";
+        hasdec = false;
+        numbers = [];
+        oper = [];
+        temp = "";
+        x = 0;
+        y = 0;
+        result = 0;
+        isAnswer = false;
+        $(".ip").empty();
+        $(".history").empty();
+        $(".display").html("88888888<div class='ip'></div><div class='history'></div>");
+      }
+
+
+      function givemepls(){
+        var string = $(".history").text();
+
+        //equal not pressed first and not pressed after operator
+        if(!isAnswer && lastpressed != "" && string[string.length - 1] != "+" && string[string.length - 1] != "-" && string[string.length - 1] != "*" && string[string.length - 1] != "/"){
+          var opcount = 0;
+
+          //check no of operators
+          for(var i = 0 ; i < string.length; i++){
+            switch(string[i]){
+              case "+":
+              case "-":
+              case "*":
+              case "/":
+                opcount++;
+                break;
+            }
+          }
+
+          if(opcount > 0){
+
+            isAnswer = true;
+            temp = "";
+            for(var i = 0; i < string.length; i++){
+              if(string[i] == "+" || string[i] == "-" || string[i] == "*" || string[i] == "/"){
+                numbers.push(temp);
+                oper.push(string[i]);
+                temp = "";
+              }
+              else
+                temp += string[i];
+            }
+
+            numbers.push(temp);
+
+            for(var j = 0; j < numbers.length - 1; j++){
+              x = parseFloat(numbers[j]);
+              y = parseFloat(numbers[j+1]);
+
+              switch(oper[j]){
+                case "+":
+                  result = x+y;
+                  break;
+                case "-":
+                  result = x-y;
+                  break;
+                case "*":
+                  result = x*y;
+                  break;
+                case "/":
+                  result = x/y;
+                  break;
+              }
+              if(result % 1 != 0){
+                result = result.toFixed(4).replace(/0+$/, "");
+              }
+              numbers[j+1] = result;
+            }
+
+
+
+            $(".ip").empty();
+            result = numbers[numbers.length - 1]
+
+            if(result % 1 != 0){
+              lengthy = result.split("");
+              lengthy --;
+              if(length > 8){
+                $(".ip").append("Error!");
+                $(".history").empty();
+                $(".history").append("Exceeded bit length!");
+              }
+              else{
+                hasdec = false;
+                $(".ip").append(result);
+                $(".history").append("=", result);
+              }
+            }
+
+            else{
+              if(result > 99999999){
+                $(".ip").append("Error!");
+                $(".history").empty();
+                $(".history").append("Exceeded bit length!");
+              }
+              else{
+                $(".ip").append(result);
+                $(".history").append("=", result);
+              }
+            }
+
+            for(var rand = 0; rand <= numbers.length; rand++)
+              numbers.pop();
+
+            for(var lol = 0; lol <= oper.length; lol++)
+              oper.pop();
+          }
+        }
+      }
+
+    </script>
+
+  </body>
+
+</html>

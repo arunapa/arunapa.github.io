@@ -1,2 +1,1 @@
-# arunapa.github.io
-Legacy portfolio website
+# [Visit my portfolio here!](https://arunapa.github.io)
