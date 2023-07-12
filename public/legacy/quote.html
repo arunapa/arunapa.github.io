@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Random Quote Machine</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"></script>
+
+
+    <link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Barlow:200" rel="stylesheet">
+
+    <style>
+
+      a, a:hover, a:focus { color: white; }
+
+      .box {
+        width: 60vw;
+        height: auto;
+        margin-left: 20vw;;
+        margin-top: 100px;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        background-color: white;
+        box-shadow: 3px 3px 15px;
+        -webkit-animation: box 2s;
+        margin-bottom: 50px;
+      }
+
+      @-webkit-keyframes box {
+        from {opacity: 0;}
+        to {opacity: 1;}
+        75% {opacity: 0;}
+      }
+
+      .twitter {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        margin-left: -8%;
+      }
+
+      .new-quote {
+        position: absolute;
+        margin-left: -2.5%;
+        height: 50px;
+        width: auto;
+      }
+
+      body {
+        background-color: #302f2f;
+        text-align: center;
+        font-size: 10px;
+      }
+
+      h1 {
+        font-family: "Barlow";
+        color: white;
+        font-weight: 1000;
+        font-size: 300%;
+        word-spacing: 5px;
+      }
+
+      h1 .letter {
+        display: inline-block;
+        line-height: 1em;
+      }
+
+      .said {
+        position: relative;
+        font-family: Barlow;
+        font-weight: 1000;
+        height: auto;
+        font-size: 200%;
+        -webkit-animation: box 1s;
+      }
+
+      .by {
+        position: relative;
+        height: auto;
+        padding-bottom: 10px;
+        text-align: right;
+        font-size: 150%;
+        color: #111111;
+        font-family: 'Merienda One',cursive;
+        -webkit-animation: box 1s;
+      }
+
+      .quotepic{
+        position: absolute;
+      }
+
+      .quotepic img {
+        position: absolute;
+        height: 60px;
+        width: auto;
+        margin-left: -35px;
+        margin-top: -50px;
+      }
+
+      .row button {
+        font-size: 150%;
+        background: black;
+        color: white;
+        padding: 10px;
+        width: 150px;
+      }
+
+
+      .footer {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        padding: 2px;
+        text-align: center;
+        background-color: #232323;
+        padding-top: 10px;
+      }
+
+      a:hover {outline: none !important;}
+
+      .footerimg {
+        height: 13px;
+        width: auto;
+        margin-left: 7px;
+        margin-right: 7px;
+        margin-bottom: 5px;
+      }
+
+      .footerimg:hover {opacity: 0.5;}
+
+      .footertext {
+        letter-spacing: 2px;
+        font-family: 'Barlow';
+        color: white;
+      }
+
+      @media screen and (max-width: 720px) {
+        body { font-size: 8px; }
+        .box {
+          width: 90vw;
+          margin-left: 5vw;
+          margin-top: 10vh;
+        }
+
+      }
+
+
+    </style>
+
+  </head>
+
+  <body>
+
+    <h1>RANDOM QUOTE MACHINE</h1>
+
+    <div class="box" id="lel">
+
+      <div class="quotepic"><img src="quote/quote3.png?raw=true" /></div>
+
+      <div class="quote">
+        <p id="said" class="said">Welcome to my quote generating webpage! Click on the button below!</p>
+        <p id="by" class="by">-Aruna</p>
+      </div>
+
+      <div class="row" style="text-align: center">
+        <div class="col-md-3"></div>
+        <div class="col-md-3"><button onclick="postit()">Tweet me</button></div>
+        <div class="col-md-3"><button onclick="clickMe()">Another one!</button></div>
+        <div class="col-md-3"></div>
+      </div>
+
+    <div class="footer">
+      <div>
+        <a href="https://linkedin.com/in/arunapa" target="_blank"><img src="icons/lightlinkedin.png?raw=true" class="footerimg" /></a>
+        <a href="https://github.com/arunapa" target="_blank"><img src="icons/lightgit.png?raw=true" class="footerimg"/></a>
+        <a href="https://arunapa.github.io" target="_blank"><img src="icons/lighthome.png?raw=true" class="footerimg"/></a>
+      </div>
+      <div class="footertext">© 2017-2022 Aruna Parameswaran | All Rights Reserved</div>
+    </div>
+
+    <script>
+
+      var myColors = ["#8b45a8", "#818b96","#633974", "#1AAF92", "#2E86C1", "#6795b5", "#c97b72", "#154360", "#0E6655", "#626567", "#1B2631", "#641E16", "#5B2C6F", "#b58c87 ","#4cad91 ", "#DD597D", "#e2a1a1", "#8DC7BB", "#7777d1","#FF8A8A","#B96F6F", "#B05F3C", "#6CA870", "#20c2db", "#bb90e5", "#800080", "#d1d192", "#FFD34F", "#4A9586", "#1F88A7", "#2C3E50", "#922B21"];
+
+      var myFooterColors = ["#6b3582", "#656e77", "#492359", "#138C74", "#2777ad", "#577e99", "#9e615a", "#113851", "#0c5b4c", "#525456", "#263544", "#4c1610", "#3e1e44", "#a5807c", "#429b81", "#ba4a68", "#bf8787", "#709e94", "#6161a8", "#dd7a7a", "#824e4e", "#87482d", "#57875b", "#1ba0b5","#9c78bf", "#4f004f", "#cccc8e", "#e0b945", "#3a7267", "#106982", "#1B2530", "#72211a"];
+
+      var randomize = 0;
+      var said = "";
+      var author = "";
+      var box = document.getElementById("lel");
+
+      $('h1').each(function(){
+        $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
+      });
+
+      anime.timeline()
+      .add({
+        targets: 'h1 .letter',
+        scale: [3,1],
+        opacity: [0,1],
+        translateZ: 0,
+        easing: "easeOutExpo",
+        duration: 900,
+        delay: function(el, i) {
+          return 70*i;
+        }
+      });
+
+
+      function clickMe(){
+
+        $(document).ready(function(){
+          $.get("https://quotes.herokuapp.com/libraries/math/random", function(result){
+            said = result.substr(0, result.indexOf('--'));
+            author = result.substr(result.indexOf('--'), result.length);
+            $("#said").html(said);
+            $("#by").html(author);
+          });
+        });
+
+        repeatanimate();
+
+        randomize = Math.floor(Math.random()*myColors.length);
+        $('body').css("background-color", myColors[randomize]);
+        $('#by').css("color", myColors[randomize]);
+        $('.footer').css("background-color", myFooterColors[randomize]);
+      }
+
+      function repeatanimate(){
+        //destroy and create hack
+        document.body.removeChild(box);
+        document.body.appendChild(box);
+        box.style.animation = "box";
+      }
+
+
+      function postit(){
+        window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(said + " " + author));
+      }
+
+    </script>
+
+  </body>
+
+</html>

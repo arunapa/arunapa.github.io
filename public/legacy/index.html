@@ -1,0 +1,406 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<title>Aruna's Portfolio</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<link rel="shortcut icon" type="image/png" href="favicon.ico"/>
+		<!--fonts-->
+		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
+	</head>
+
+	<style>
+
+	body {
+			overflow-y: hidden;
+			overflow-x: hidden !important;
+			width: 100vw;
+			height: 100vh;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: -2;
+			color: white;
+			background-color: #000;
+			background-image: url("portfolio/bg.jpg");
+			background-position: center center;
+			background-repeat: no-repeat;
+			max-height: 100vh;
+			max-width: 100vw;
+			background-attachment: fixed !important;
+			background-size: cover;
+			font-family: 'Source Sans Pro';
+		}
+
+		.box {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			width: 100vw;
+			height: 100vh;
+			color: white;
+			padding-top: 20vh;
+			visibility: visible;
+		}
+
+		.line1 {
+			position: absolute;
+			width: 50vw;
+			height: 2px;
+			background: #DDD;
+			margin-left: 25vw;
+			margin-bottom: 50px;
+		}
+
+		.line2 {
+			position: absolute;
+			width: 50vw;
+			height: 2px;
+			background: #DDD;
+			margin-left: 25vw;
+			margin-top: 60px;
+		}
+
+
+		#aruna {
+			position: absolute;
+			font-size: 30px;
+			font-family: 'Times New Roman';
+			font-weight: 500;
+			font-style: italic;
+			width: 100vw;
+			height: auto;
+		}
+
+		.row button {
+			margin-top: 30px;
+			background-color: transparent;
+			font-size: 13px;
+			letter-spacing: 2px;
+			padding: 12px;
+			width: 150px;
+			transition: all 0.51s ease-in-out;
+		}
+
+		button:hover { transform: scale(1.1); }
+
+		h1 { font-size: 40px; }
+
+		.socialmedia {
+			text-align: center;
+			margin-top: 30px;
+		}
+
+		.content {
+			position: absolute;
+			background: #222;
+			width: 50vw;
+			min-height: 80vh;
+			left: 0;
+			top: 0;
+			margin-left: 25vw;
+			margin-top: 10vh;
+			z-index: 2;
+			visibility: hidden;
+			opacity: 0;
+			color: #AAA;
+			padding: 20px;
+			padding-bottom:40px;
+		}
+
+		#abt {max-height: auto; margin-bottom: 20vh}
+		#proj {max-height: 120vh;}
+		.content h3 {
+			position: relative;
+			letter-spacing: 2px;
+			padding-bottom: 15px;
+			width: 150px;
+			color: white;
+			margin-bottom: 30px;
+			border-bottom: 2px solid white;
+		}
+
+		.hey {
+			position: absolute;
+			top: 0;
+			right: 0;
+			background: transparent;
+			font-size: 25px;
+			box-shadow: none;
+			outline: none;
+			border: none;
+			width: 40px;
+			font-family: sans-serif;
+			height: 40px;
+			border-radius: 50%;
+			transition: 0.2s all ease-out;
+		}
+
+		.hey:hover, .next:hover, .prev:hover { transform: scale(1.5);}
+
+		.next, .prev {
+			position: absolute;
+			font-size: 40px;
+			font-family: sans-serif;
+			background: transparent;
+			outline: none;
+			border: none;
+			color: white;
+			margin-top: 105px;
+			z-index: 3;
+		}
+
+		.prev { left: 0; }
+
+		.next { right: 0; }
+
+		.prev:hover, .next:hover { background: black }
+
+		.content .desc {
+			position: relative;
+			width: 100%;
+			height: auto;
+
+			margin-top: 50px;
+		}
+
+		.poo {
+			position: relative;
+			width: 500px;
+			height: 250px;
+			background: white;
+			background-image: url("");
+			background-repeat: no-repeat;
+			background-position: center center;
+			background-attachment:local;
+			background-size: cover;
+			left: 50%;
+			margin-left: -250px;
+		}
+
+		h5 {
+			font-size: 16px !important;
+		}
+
+		.footer {
+			margin-top: 50px;
+			width: 100vw;
+			position: absolute;
+			text-align: center;
+			letter-spacing: 2px;
+			color: #888;
+			font-size: 10px;
+		}
+		.footerimg { position: relative; width: 20px; height: 20px; margin-left: 20px; margin-right: 20px;}
+
+		@media screen and (max-width: 400px) {
+
+			.box { padding-top: 10vh; }
+			h1 { font-size: 30px; }
+			#aruna { font-size: 22px; }
+			.row button { margin-top: 20px; }
+			.content { min-width: 90vw; margin-left: 5vw; }
+			.poo { width: 250px; height: 125px; left: 50%; margin-left: -125px;}
+			.next, .prev { top: 43px; }
+
+		}
+
+		@media screen and (max-width: 720px) {
+
+			html { width: 90vw; height: 90vh; }
+			.box { padding-top: 20vh; }
+			.content { min-width: 90vw; margin-left: 5vw; }
+			.poo { width: 250px; height: 125px; left: 50%; margin-left: -125px;}
+			.next, .prev { top: 43px; }
+
+		}
+
+	</style>
+
+	<body>
+		<div class="box">
+			<div class="line1"></div>
+			<h1 style="letter-spacing: 5px; text-align: center"><b>ARUNA PARAMESWARAN</b></h1>
+			<div id="aruna" style="text-align: center"></div>
+
+			<div class="line2"></div>
+			<br><br><br><br>
+
+			<div class="row" style="text-align: center">
+				<div class="col-xm-6"><button onclick="displayAbout()">ABOUT ME</button></div>
+				<div class="col-xm-6"><button onclick="displayProjects()">PROJECTS</button></div>
+			</div>
+
+			<div class="socialmedia">
+				<a href="https://linkedin.com/in/arunapa" target="_blank">
+				<img src="icons/lightlinkedin.png" class="footerimg" /></a>
+				<a href="https://github.com/arunapa" target="_blank">
+				<img src="icons/lightgit.png" class="footerimg"/></a></div>
+
+			<div class="footer">© 2017-2022 Aruna Parameswaran | All Rights Reserved</div>
+		</div>
+
+		<div id="abt" class="content" style="">
+			<button class="hey" onclick="collapse()">x</button>
+			<h3>ABOUT ME</h3>
+			<img src="portfolio/me.jpg" class="poo" />
+			<h2 style="color:white"><b>Hello! I'm Aruna.</b></h2>
+			<h5>I'm currently in University where my major is Computer Science and Engineering. I'm a total computer geek and I'm obsessed with all things tech.<br><br>
+			I'm highly proficient in <b>Web Development, Responsive Web Design and UI/UX. </b>
+			I have a keen eye for design and relentlessly pursue creative ventures. I build dynamic websites for various purposes.<br><br>
+			Additionally, I am also a versatile programmer. Some of the tools and technologies I constantly work with are:
+				<i><ul><br>
+					<li>C/C++</li><br>
+					<li>Android Development & JAVA</li><br>
+					<li>JavaScript</li><br>
+					<li>Python</li><br>
+					<li>MATLAB</li><br>
+					<li>Algorithm Designing & Data Structures</li><br>
+				</ul></i>
+			I offer versatility across a diverse skill set to any project I work on. I embrace opportunities to expand my horizons and venture beyond my comfort zone.
+			Each project I take up on is determined not only by what I can contribute, but largely on what I can take away from the experience. <br><br>
+			Currently, I am seeking internships to gain real-world exposure. I'm also open to working on projects.<br><br>
+			<big style="color: white">Please contact me through LinkedIn if you would like to get in touch.</big>
+		</h5>
+		</div>
+
+		<div id="proj" class="content">
+			<h3>PROJECTS</h3>
+			<button class="next" onclick="nextpic()">></button>
+			<button class="prev" onclick="prepic()"><</button>
+			<button class="hey" onclick="collapse()">x</button>
+
+			<div class="poo"></div>
+			<div class="desc"></div>
+
+		</div>
+
+
+		<script>
+			var i = 0, j = 0;
+			var list = ["Website Developer", "Student", "Writer", "Programmer", "UI/UX Designer"];
+			var speed = 100;
+			var direction = "f";
+
+			var flag = 0;
+			var url = "<a href='https://arunapa.github.io'>link here</a>";
+			var desc = ["Presenting ... the Simon Game! But now in an interactive webpage that allows you to operate the game at ease. Simon is a memory game where you have to repeat the pattern played out to you on the board. Have fun testing your memory skills!",
+			"A dynamic web app that uses APIXU's API to display the weather information from the user's current location. Also allows user to search for a particular location and derive information about it.",
+			"Tic Tac Toe is one of the most popular, yet simplest of games that can be played either alone or against a computer! In this project, I designed my own version including AI algorithms to increase difficulty of single player mode.",
+	 		"This web page helps to access the popular streaming site Twitch's API and hence display relevant information regarding a particular streamer, and whether he is online or offline. In case he is online, the user can get the URL to go view the stream. The user can also add streamers of their choice.",
+			"A web page that connects to an external API and displays different quotes from various people alongside an interactive, dynamic environment. Also allows user to tweet out the quote.",
+			"A simple web page that functions as a basic calculator with intuitive, responsive design.",
+			"This web page accesses MediWiki's API and hence displays relevant articles to the user based on his query. It also has the option to display a random article.",
+			"A simple yet elegant web page that allows you to focus on your work in peace. Users can choose the length of the pomodoro as well as the break. The window alerts you when the allotted time is up, as well as keeps a track of your progress.",
+			"A tribute page to one of the most historically prominent people in the field of Computer Science."];
+
+			var link = ["simon", "weather", "tictactoe", "twitch", "quote", "calculator", "wiki","pomodoro","gracehopper"];
+			$(document).ready(function(){
+				setTimeout(function(){ typeWriter(); }, 1500);
+				window.scrollTo(0, 0);
+			});
+
+			function typeWriter() {
+				if(j == list.length){
+					j = 0;
+					i = 0;
+					direction = "f";
+					document.getElementById("aruna").innerHTML = '';
+				}
+
+				else if(i == -1){
+					i = 0;
+					j++;
+					direction = "f";
+					document.getElementById("aruna").innerHTML = "";
+				}
+
+				if(j == list.length){
+					j = 0;
+				}
+
+				if (i < list[j].length && direction == "f") {
+
+					document.getElementById("aruna").innerHTML = list[j].slice(0, i) + "|";
+					i++;
+					setTimeout(typeWriter, speed);
+				}
+
+				else if(i == list[j].length){
+					document.getElementById("aruna").innerHTML = list[j] + "|";
+					direction = "r";
+					i--;
+					setTimeout(typeWriter, 2000);
+				}
+				else if(direction == "r"){
+					document.getElementById("aruna").innerHTML = list[j].slice(0, i) + "|";
+					i--;
+					setTimeout(typeWriter, speed - 50);
+				}
+			}
+
+			function displayAbout() {
+				$(".box").css("visibility", "hidden");
+				$("#abt").css("visibility", "visible");
+				$("body").css("overflow-y", "scroll");
+				$("body").fadeIn("slow", function() {
+					$("body").css("background-image", "url('portfolio/bgblur.jpg')");
+					$("#abt").animate({opacity: "1"}, "slow");
+				});
+			}
+
+
+			function displayProjects() {
+				flag = 0;
+				$(".box").css("visibility", "hidden");
+				$("#proj").css("visibility", "visible");
+				$("body").css("overflow-y", "scroll");
+				$("body").css("height", "100vh");
+				$("body").fadeIn("slow", function() {
+					$("body").css("background-image", "url('portfolio/bgblur.jpg')");
+					$("#proj").animate({opacity: "1"}, "slow");
+				});
+				display();
+			}
+
+			function collapse() {
+				$(".box").css("visibility", "visible");
+				$("#abt").css("visibility", "hidden");
+				$("#proj").css("visibility", "hidden");
+				$("body").css("background-image", "url('portfolio/bg.jpg')");
+				$("#abt").css("opacity", "0");
+				$("#proj").css("opacity", "0");
+				$("body").css("overflow-y", "hidden");
+				$("body").css("height", "100vh");
+			}
+
+			function nextpic() {
+				if(flag == 8) { flag = 0; }
+				else {flag++;}
+				display();
+			}
+
+			function prepic() {
+				if(flag > 0) { flag--; }
+				else { flag = 8; }
+				display();
+			}
+
+			function display() {
+				var string = 'url("portfolio/' + flag + '.png")';
+				var url = "<a target='_blank' href='"+link[flag]+".html'><div class='row'><button style='text-align: center; color: white;margin-top: -10px; margin-left: 20px; width: 100px;'>LINK</button></div></a>";
+				$(".poo").css("background-image", string);
+				$(".desc").html("");
+				$(".desc").append("<h5>" + desc[flag] + "</h5><br><br>" + url);
+
+			}
+
+		</script>
+
+	</body>
+</html>
