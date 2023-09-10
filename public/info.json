@@ -1,0 +1,16 @@
+{
+    "url": "https://arunapa.dev",
+    "Name": "Aruna",
+    "FullName": "Aruna Parameswaran",
+    "InterestedIn": [
+        "Software Engineering",
+        "Designing scalable systems",
+        "Embedded Application Development",
+        "Frontend Development"
+    ],
+    "Links": {
+        "GitHub": "https://github.com/arunapa",
+        "LinkedIn": "https://www.linkedin.com/in/arunapa/",
+        "Email": "mailto:aruna.parame@gmail.com"
+    }
+}
