@@ -1,8 +1,8 @@
-import { Noto_Sans } from 'next/font/google';
+import { Nunito } from 'next/font/google';
 import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 import { red } from '@mui/material/colors';
 
-export const noto = Noto_Sans({
+export const nunito = Nunito({
   weight: ['300', '400', '700', '900'],
   subsets: ['latin'],
   display: 'swap',
@@ -21,9 +21,12 @@ let theme = createTheme({
     error: {
       main: red.A400,
     },
+    background: {
+      default: "#ffffff"
+    }
   },
   typography: {
-    fontFamily: noto.style.fontFamily,
+    fontFamily: nunito.style.fontFamily,
   },
 });
 

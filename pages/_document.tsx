@@ -9,7 +9,7 @@ import Document, {
 } from 'next/document';
 import createEmotionServer from '@emotion/server/create-instance';
 import { AppType } from 'next/app';
-import theme, { noto } from '../src/theme';
+import theme, { nunito } from '../src/theme';
 import createEmotionCache from '../src/createEmotionCache';
 import { MyAppProps } from './_app';
 
@@ -19,7 +19,7 @@ interface MyDocumentProps extends DocumentProps {
 
 export default function MyDocument({ emotionStyleTags }: MyDocumentProps) {
   return (
-    <Html lang="en" className={noto.className}>
+    <Html lang="en" className={nunito.className}>
       <Head>
         {/* PWA primary color */}
         <meta name="theme-color" content={theme.palette.primary.main} />
