@@ -13,7 +13,6 @@ import { Button, Fab, Grid, Tooltip } from '@mui/material';
 import MuiLink from '@mui/material/Link';
 
 import Footer from '../src/Footer';
-import Navbar from '../src/Navbar';
 import TypeWriter from '../src/TypeWriter';
 
 import info from '../public/info.json';
