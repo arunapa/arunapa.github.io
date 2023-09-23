@@ -24,7 +24,6 @@ export default function Home() {
         <Head>
             <title>{info["FirstName"]}'s Portfolio</title>
         </Head>
-        <Navbar />
         <Container maxWidth="lg">
             <Box
                 sx={{
